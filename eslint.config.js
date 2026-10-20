@@ -7,7 +7,6 @@ import globals from 'globals';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import _import from 'eslint-plugin-import';
 import tsParser from '@typescript-eslint/parser';
-import jest from 'eslint-plugin-jest';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import js from '@eslint/js';
@@ -32,6 +31,7 @@ export default [
       '**/*.generated.d.ts',
       '**/.react-router/',
       '**/packages/hydrogen/dist/',
+      '**/env.d.ts',
     ],
   },
   ...fixupConfigRules(
@@ -222,19 +222,18 @@ export default [
       },
     },
   },
-  ...compat.extends('plugin:jest/recommended').map((config) => ({
-    ...config,
-    files: ['**/*.test.*'],
-  })),
   {
-    files: ['**/*.test.*'],
-    plugins: {
-      jest,
-    },
+    files: ['**/*.{test,spec}.*', 'e2e/**/*'],
     languageOptions: {
       globals: {
         ...globals.node,
-        ...globals.jest,
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        vi: 'readonly',
       },
     },
   },

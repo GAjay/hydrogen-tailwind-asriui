@@ -2,6 +2,7 @@ import {Suspense} from 'react';
 import {Await, NavLink, useAsyncValue} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
+import {Button} from '~/lib/ui';
 
 /**
  * @param {HeaderProps}
@@ -105,21 +106,25 @@ function HeaderCtas({isLoggedIn, cart}) {
 function HeaderMenuMobileToggle() {
   const {open} = useAside();
   return (
-    <button
-      className="header-menu-mobile-toggle reset"
+    <Button
+      type="button"
+      variant="ghost"
+      size="sm"
+      className="header-menu-mobile-toggle"
+      aria-label="Open menu"
       onClick={() => open('mobile')}
     >
-      <h3>☰</h3>
-    </button>
+      ☰
+    </Button>
   );
 }
 
 function SearchToggle() {
   const {open} = useAside();
   return (
-    <button className="reset" onClick={() => open('search')}>
+    <Button type="button" variant="outline" size="sm" onClick={() => open('search')}>
       Search
-    </button>
+    </Button>
   );
 }
 

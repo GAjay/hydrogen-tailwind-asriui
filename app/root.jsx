@@ -13,6 +13,9 @@ import favicon from '~/assets/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
+import tailwindStyles from '~/styles/tailwind.css?url';
+import asriUiStyles from 'asriui/style.css?url';
+import {AsriUIAppProvider} from '~/components/AsriUIAppProvider';
 import {PageLayout} from './components/PageLayout';
 
 /**
@@ -152,6 +155,8 @@ export function Layout({children}) {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
+        <link rel="stylesheet" href={tailwindStyles}></link>
+        <link rel="stylesheet" href={asriUiStyles}></link>
         <Meta />
         <Links />
       </head>
@@ -173,15 +178,17 @@ export default function App() {
   }
 
   return (
-    <Analytics.Provider
-      cart={data.cart}
-      shop={data.shop}
-      consent={data.consent}
-    >
-      <PageLayout {...data}>
-        <Outlet />
-      </PageLayout>
-    </Analytics.Provider>
+    <AsriUIAppProvider>
+      <Analytics.Provider
+        cart={data.cart}
+        shop={data.shop}
+        consent={data.consent}
+      >
+        <PageLayout {...data}>
+          <Outlet />
+        </PageLayout>
+      </Analytics.Provider>
+    </AsriUIAppProvider>
   );
 }
 

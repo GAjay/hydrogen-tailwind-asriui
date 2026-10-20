@@ -1,11 +1,12 @@
 import {fileURLToPath} from 'node:url';
+import tailwindcss from '@tailwindcss/vite';
 import {defineConfig} from 'vite';
 import {hydrogen} from '@shopify/hydrogen/vite';
 import {oxygen} from '@shopify/mini-oxygen/vite';
 import {reactRouter} from '@react-router/dev/vite';
 
 export default defineConfig({
-  plugins: [hydrogen(), oxygen(), reactRouter()],
+  plugins: [tailwindcss(), hydrogen(), oxygen(), reactRouter()],
   resolve: {
     alias: {
       // Vite's native tsconfig path resolver does not cover JavaScript
@@ -35,8 +36,10 @@ export default defineConfig({
         'react-router > set-cookie-parser',
         'react-router > cookie',
         'react-router',
+        'framer-motion',
       ],
     },
+    noExternal: ['asriui'],
   },
   server: {
     allowedHosts: ['.tryhydrogen.dev'],
